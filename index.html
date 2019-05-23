@@ -13,14 +13,22 @@
         <input id="chat_input" type="text">
         <input type="submit" value="Send">
     </form>
-    <script src="/jquery/dist/jquery.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+   
     <script>
-    const proxyurl = "https://shielded-ridge-99299.herokuapp.com/";
-    const url = "http://10.1.220.19:4200"
-    const socket = io.connect(proxyurl+url);
-    socket.on("connect", function(data){
+    // const proxyurl = "https://shielded-ridge-99299.herokuapp.com/";
+    // const url = "http://10.1.220.19:4200";
+
+    const socket = io("http://localhost:4200");
+    socket.on("connect", function(){
+        //runs back end
         socket.emit("join", "Hello World from client");
+        //runs front end
+        console.log('Hi from client!');
+    });
+
+    socket.on("messages", function(data) {
+        alert(data);
     });
     </script>
 </body>
